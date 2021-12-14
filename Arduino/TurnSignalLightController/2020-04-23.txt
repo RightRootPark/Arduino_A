@@ -1,0 +1,905 @@
+// 2020-04-22 ~
+
+
+#include "FastLED.h"
+
+#define LED_CONTROL_MODULE_AMOUNT 56U
+#define LED_CONTROL_OUTPUT_PIN 6U
+
+#define LED_DAYTIME_RUNNING_LIGHT_LEFT_START_INDEX (14U)
+#define LED_DAYTIME_RUNNING_LIGHT_LEFT_INDEX_LENGTH (14U)
+#define LED_DAYTIME_RUNNING_LIGHT_RIGHT_START_INDEX (0U)
+#define LED_DAYTIME_RUNNING_LIGHT_RIGHT_INDEX_LENGTH (14U)
+
+#define LED_CLEARANCE_LIGHT_FRONT_LEFT_START_INDEX (14U)
+#define LED_CLEARANCE_LIGHT_FRONT_LEFT_INDEX_LENGTH (14U)
+#define LED_CLEARANCE_LIGHT_FRONT_RIGHT_START_INDEX (0U)
+#define LED_CLEARANCE_LIGHT_FRONT_RIGHT_INDEX_LENGTH (14U)
+#define LED_CLEARANCE_LIGHT_REAR_LEFT_START_INDEX (28U)
+#define LED_CLEARANCE_LIGHT_REAR_LEFT_INDEX_LENGTH (14U)
+#define LED_CLEARANCE_LIGHT_REAR_RIGHT_START_INDEX (42U)
+#define LED_CLEARANCE_LIGHT_REAR_RIGHT_INDEX_LENGTH (14U)
+
+#define LED_TURN_SIGNAL_LIGHT_FRONT_LEFT_START_INDEX (14U)
+#define LED_TURN_SIGNAL_LIGHT_FRONT_LEFT_INDEX_LENGTH (14U)
+#define LED_TURN_SIGNAL_LIGHT_FRONT_RIGHT_START_INDEX (0U)
+#define LED_TURN_SIGNAL_LIGHT_FRONT_RIGHT_INDEX_LENGTH (14U)
+#define LED_TURN_SIGNAL_LIGHT_REAR_LEFT_START_INDEX (28U)
+#define LED_TURN_SIGNAL_LIGHT_REAR_LEFT_INDEX_LENGTH (14U)
+#define LED_TURN_SIGNAL_LIGHT_REAR_RIGHT_START_INDEX (42U)
+#define LED_TURN_SIGNAL_LIGHT_REAR_RIGHT_INDEX_LENGTH (14U)
+
+#define LED_HEAD_LIGHT_LEFT_START_INDEX (14U)
+#define LED_HEAD_LIGHT_LEFT_INDEX_LENGTH (7U)
+#define LED_HEAD_LIGHT_RIGHT_START_INDEX (7U)
+#define LED_HEAD_LIGHT_RIGHT_INDEX_LENGTH (7U)
+
+#define LED_BRAKE_LIGHT_LEFT_START_INDEX (37U)
+#define LED_BRAKE_LIGHT_LEFT_INDEX_LENGTH (5U)
+#define LED_BRAKE_LIGHT_RIGHT_START_INDEX (42U)
+#define LED_BRAKE_LIGHT_RIGHT_INDEX_LENGTH (5U)
+
+#define GetTickCount millis
+
+static uint8_t CtrlCmdBits = 0U;
+
+static CRGB LEDModList[LED_CONTROL_MODULE_AMOUNT] = {NULL};
+
+void ControlHeadlightLED(void)
+{
+}
+void ControlTailLightLED(void)
+{
+}
+
+void setup()
+{
+	Serial.begin(9600);
+}
+
+void ExecuteDaytimeRunningLampLeftControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_DAYTIME_RUNNING_LIGHT_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_DAYTIME_RUNNING_LIGHT_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x40U;
+		LEDColorBVal = 0xFFU;
+		//
+		for (uint8_t RemLoopCnt = LED_DAYTIME_RUNNING_LIGHT_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_DAYTIME_RUNNING_LIGHT_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+void ExecuteDaytimeRunningLampRightControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_DAYTIME_RUNNING_LIGHT_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_DAYTIME_RUNNING_LIGHT_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x67U;
+		LEDColorBVal = 0xFFU;
+		//
+		for (uint8_t RemLoopCnt = LED_DAYTIME_RUNNING_LIGHT_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_DAYTIME_RUNNING_LIGHT_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+void ExecuteClearanceLampFrontLeftControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_CLEARANCE_LIGHT_FRONT_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_CLEARANCE_LIGHT_FRONT_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x0EU;
+		LEDColorBVal = 0x14U;
+		//
+		for (uint8_t RemLoopCnt = LED_CLEARANCE_LIGHT_FRONT_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_CLEARANCE_LIGHT_FRONT_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+void ExecuteClearanceLampFrontRightControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_CLEARANCE_LIGHT_FRONT_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_CLEARANCE_LIGHT_FRONT_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x0EU;
+		LEDColorBVal = 0x14U;
+		//
+		for (uint8_t RemLoopCnt = LED_CLEARANCE_LIGHT_FRONT_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_CLEARANCE_LIGHT_FRONT_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+void ExecuteClearanceLampRearLeftControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_CLEARANCE_LIGHT_REAR_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_CLEARANCE_LIGHT_REAR_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		LEDColorRVal = 0x16U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_CLEARANCE_LIGHT_REAR_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_CLEARANCE_LIGHT_REAR_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+void ExecuteClearanceLampRearRightControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_CLEARANCE_LIGHT_REAR_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_CLEARANCE_LIGHT_REAR_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		LEDColorRVal = 0x16U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_CLEARANCE_LIGHT_REAR_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_CLEARANCE_LIGHT_REAR_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+void ExecuteTurnSignalLampFrontLeftControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	static uint8_t LastIdxRange;
+	static uint8_t LEDStreamMode;
+
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_TURN_SIGNAL_LIGHT_FRONT_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_TURN_SIGNAL_LIGHT_FRONT_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		if (LEDStreamMode == 0U)
+		{
+			LEDColorRVal = 0xFFU;
+			LEDColorGVal = 0x25U;
+			LEDColorBVal = 0x00U;
+		}
+		else
+		{
+			LEDColorRVal = 0x00U;
+			LEDColorGVal = 0x00U;
+			LEDColorBVal = 0x00U;
+		}
+		//
+		for (uint8_t RemLoopCnt = LastIdxRange; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_TURN_SIGNAL_LIGHT_FRONT_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+
+		//
+		if (LastIdxRange >= LED_TURN_SIGNAL_LIGHT_FRONT_LEFT_INDEX_LENGTH)
+		{
+			//
+			LastIdxRange = 0U;
+
+			//
+			if (LEDStreamMode == 0U)
+			{
+				//
+				LEDStreamMode = 1U;
+			}
+			else
+			{
+				//
+				LEDStreamMode = 0U;
+			}
+		}
+		else
+		{
+			//
+			LastIdxRange += 1U;
+		}
+	}
+}
+void ExecuteTurnSignalLampRearLeftControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	static uint8_t LastIdxRange;
+	static uint8_t LEDStreamMode;
+
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_TURN_SIGNAL_LIGHT_REAR_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_TURN_SIGNAL_LIGHT_REAR_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		if (LEDStreamMode == 0U)
+		{
+			LEDColorRVal = 0xFFU;
+			LEDColorGVal = 0x25U;
+			LEDColorBVal = 0x00U;
+		}
+		else
+		{
+			LEDColorRVal = 0x00U;
+			LEDColorGVal = 0x00U;
+			LEDColorBVal = 0x00U;
+		}
+		//
+		for (uint8_t RemLoopCnt = LastIdxRange; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_TURN_SIGNAL_LIGHT_REAR_LEFT_START_INDEX + (LED_TURN_SIGNAL_LIGHT_REAR_LEFT_INDEX_LENGTH - (RemLoopCnt + 1U)));
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+
+		//
+		if (LastIdxRange >= LED_TURN_SIGNAL_LIGHT_REAR_LEFT_INDEX_LENGTH)
+		{
+			//
+			LastIdxRange = 0U;
+
+			//
+			if (LEDStreamMode == 0U)
+			{
+				//
+				LEDStreamMode = 1U;
+			}
+			else
+			{
+				//
+				LEDStreamMode = 0U;
+			}
+		}
+		else
+		{
+			//
+			LastIdxRange += 1U;
+		}
+	}
+}
+void ExecuteTurnSignalLampFrontRightControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	static uint8_t LastIdxRange;
+	static uint8_t LEDStreamMode;
+
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_TURN_SIGNAL_LIGHT_FRONT_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_TURN_SIGNAL_LIGHT_FRONT_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		if (LEDStreamMode == 0U)
+		{
+			LEDColorRVal = 0xFFU;
+			LEDColorGVal = 0x25U;
+			LEDColorBVal = 0x00U;
+		}
+		else
+		{
+			LEDColorRVal = 0x00U;
+			LEDColorGVal = 0x00U;
+			LEDColorBVal = 0x00U;
+		}
+		//
+		for (uint8_t RemLoopCnt = LastIdxRange; RemLoopCnt--;)
+		{
+
+			const uint8_t TrgtLEDListIdx = (LED_TURN_SIGNAL_LIGHT_FRONT_RIGHT_START_INDEX + (LED_TURN_SIGNAL_LIGHT_FRONT_RIGHT_INDEX_LENGTH - (RemLoopCnt + 1U)));
+			//
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+
+		//
+		if (LastIdxRange >= LED_TURN_SIGNAL_LIGHT_FRONT_RIGHT_INDEX_LENGTH)
+		{
+			//
+			LastIdxRange = 0U;
+
+			//
+			if (LEDStreamMode == 0U)
+			{
+				//
+				LEDStreamMode = 1U;
+			}
+			else
+			{
+				//
+				LEDStreamMode = 0U;
+			}
+		}
+		else
+		{
+			//
+			LastIdxRange += 1U;
+		}
+	}
+}
+void ExecuteTurnSignalLampRearRightControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	static uint8_t LastIdxRange;
+	static uint8_t LEDStreamMode;
+
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_TURN_SIGNAL_LIGHT_REAR_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_TURN_SIGNAL_LIGHT_REAR_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		if (LEDStreamMode == 0U)
+		{
+			LEDColorRVal = 0xFFU;
+			LEDColorGVal = 0x25U;
+			LEDColorBVal = 0x00U;
+		}
+		else
+		{
+			LEDColorRVal = 0x00U;
+			LEDColorGVal = 0x00U;
+			LEDColorBVal = 0x00U;
+		}
+		//
+		for (uint8_t RemLoopCnt = LastIdxRange; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_TURN_SIGNAL_LIGHT_REAR_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+
+		//
+		if (LastIdxRange >= LED_TURN_SIGNAL_LIGHT_REAR_RIGHT_INDEX_LENGTH)
+		{
+			//
+			LastIdxRange = 0U;
+
+			//
+			if (LEDStreamMode == 0U)
+			{
+				//
+				LEDStreamMode = 1U;
+			}
+			else
+			{
+				//
+				LEDStreamMode = 0U;
+			}
+		}
+		else
+		{
+			//
+			LastIdxRange += 1U;
+		}
+	}
+}
+void ExecuteHeadLampLeftControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_HEAD_LIGHT_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_HEAD_LIGHT_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		LEDColorRVal = 0xFFU;
+		LEDColorGVal = 0xA0U;
+		LEDColorBVal = 0x30U;
+		//
+		for (uint8_t RemLoopCnt = LED_HEAD_LIGHT_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_HEAD_LIGHT_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+void ExecuteHeadLampRightControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag == 0U)
+	{
+		//
+		LEDColorRVal = 0x00U;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_HEAD_LIGHT_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_HEAD_LIGHT_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+	else
+	{
+		//
+		LEDColorRVal = 0xFFU;
+		LEDColorGVal = 0xA0U;
+		LEDColorBVal = 0x30U;
+		//
+		for (uint8_t RemLoopCnt = LED_HEAD_LIGHT_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_HEAD_LIGHT_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+void ExecuteBrakeLampLeftControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag != 0U)
+	{
+		//
+		LEDColorRVal = 0xFFU;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_BRAKE_LIGHT_LEFT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_BRAKE_LIGHT_LEFT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+void ExecuteBrakeLampRightControlFunction(const uint8_t _In_CtrlFlag)
+{
+	//
+	uint8_t LEDColorRVal = 0x00U;
+	uint8_t LEDColorGVal = 0x00U;
+	uint8_t LEDColorBVal = 0x00U;
+
+	//
+	if (_In_CtrlFlag != 0U)
+	{
+		//
+		LEDColorRVal = 0xFFU;
+		LEDColorGVal = 0x00U;
+		LEDColorBVal = 0x00U;
+		//
+		for (uint8_t RemLoopCnt = LED_BRAKE_LIGHT_RIGHT_INDEX_LENGTH; RemLoopCnt--;)
+		{
+			//
+			const uint8_t TrgtLEDListIdx = (LED_BRAKE_LIGHT_RIGHT_START_INDEX + RemLoopCnt);
+			//
+			LEDModList[TrgtLEDListIdx].red = LEDColorRVal;
+			LEDModList[TrgtLEDListIdx].green = LEDColorGVal;
+			LEDModList[TrgtLEDListIdx].blue = LEDColorBVal;
+		}
+	}
+}
+
+void ExecuteTurnSignalLampControlFunction(void)
+{
+	//
+	static uint32_t LastExecTickCnt;
+	//
+	const uint32_t CurrTickCnt = GetTickCount();
+	//
+	if (CurrTickCnt >= (LastExecTickCnt + 29UL))
+	{
+		//
+		if ((CtrlCmdBits >> 7U) & 1U != 0U)
+		{
+			// //
+			// if ((CtrlCmdBits >> 1U) & 3U == 3U)
+			// {
+			// 	//
+			// 	// 턴 시그널 - 비상등 (Hazard) 동작 모드
+			// 	// 다른 신호에 비해 우선 순위가 높으므로 따로 분리함
+			// 	//
+			// 	// ExecuteDaytimeRunningLampLeftControlFunction(1U);
+			// 	// ExecuteDaytimeRunningLampRightControlFunction(1U);
+
+			// 	// ExecuteClearanceLampFrontLeftControlFunction(1U);
+			// 	// ExecuteClearanceLampFrontRightControlFunction(1U);
+			// 	// ExecuteClearanceLampRearLeftControlFunction(1U);
+			// 	// ExecuteClearanceLampRearRightControlFunction(1U);
+
+			// 	//
+			// 	ExecuteTurnSignalLampFrontRightControlFunction(1U);
+			// 	ExecuteTurnSignalLampFrontLeftControlFunction(1U);
+			// 	ExecuteTurnSignalLampRearLeftControlFunction(1U);
+			// 	ExecuteTurnSignalLampRearRightControlFunction(1U);
+
+			// 	// ExecuteHeadLampLeftControlFunction(1U);
+			// 	// ExecuteHeadLampRightControlFunction(1U);
+
+			// 	// ExecuteBrakeLampLeftControlFunction(1U);
+			// 	// ExecuteBrakeLampRightControlFunction(1U);
+			// }
+			// else
+			{
+				//
+				// 턴 시그널 - 일반 모드
+				// 세부 분류해서 넘어감
+				//
+				switch ((CtrlCmdBits >> 1U) & 3U)
+				{
+					case 0U:
+					{
+						//
+						ExecuteTurnSignalLampFrontRightControlFunction(0U);
+						ExecuteTurnSignalLampFrontLeftControlFunction(0U);
+						ExecuteTurnSignalLampRearLeftControlFunction(0U);
+						ExecuteTurnSignalLampRearRightControlFunction(0U);
+
+						//
+						break;
+					}
+					case 1U:
+					{
+						//
+						ExecuteTurnSignalLampFrontLeftControlFunction(1U);
+						ExecuteTurnSignalLampFrontRightControlFunction(0U);
+						ExecuteTurnSignalLampRearLeftControlFunction(1U);
+						ExecuteTurnSignalLampRearRightControlFunction(0U);
+
+						//
+						break;
+					}
+					case 2U:
+					{
+						//
+						ExecuteTurnSignalLampFrontLeftControlFunction(0U);
+						ExecuteTurnSignalLampFrontRightControlFunction(1U);
+						ExecuteTurnSignalLampRearLeftControlFunction(0U);
+						ExecuteTurnSignalLampRearRightControlFunction(1U);
+
+						//
+						break;
+					}
+					case 3U:
+					{
+						
+						//
+						ExecuteTurnSignalLampFrontLeftControlFunction(1U);
+						ExecuteTurnSignalLampFrontRightControlFunction(1U);
+						ExecuteTurnSignalLampRearLeftControlFunction(1U);
+						ExecuteTurnSignalLampRearRightControlFunction(1U);
+
+						//
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			//
+			LastExecTickCnt = 0UL;
+		}
+
+		//
+		LastExecTickCnt = CurrTickCnt;
+	}
+}
+
+void loop()
+{
+	//
+	// 2020-04-22 추가:
+	// Logi 로봇에서 간혹 LED 스트립이 오작동하는 문제를 목격함
+	// I/O 핀 문제로 추측되므로 PLC I/O 설정 방식처럼 구현함
+	//
+	FastLED.addLeds<NEOPIXEL, LED_CONTROL_OUTPUT_PIN>(LEDModList, LED_CONTROL_MODULE_AMOUNT);
+
+	//
+	if (Serial.available() > 0)
+	{
+		CtrlCmdBits = Serial.read ();
+	}
+
+	// CtrlCmdBits = 134U;
+
+	//
+	ExecuteTurnSignalLampControlFunction();
+	//
+	FastLED.show();
+}
