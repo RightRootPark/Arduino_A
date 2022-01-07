@@ -1,0 +1,7 @@
+{
+    "configuration": "cpu=atmega328",
+    "board": "arduino:avr:nano",
+    "programmer": "arduino:avrispmkii",
+    "port": "COM5",
+    "sketch": "PWM2WhellMoterdriver_WJH\\PWM2WhellMoterdriver_WJH.ino"
+}

@@ -1,0 +1,33 @@
+Last modified: 오후 3:20 2020-05-11
+
+
+
+[ 1 byte ]
+0000 0000
+
+0          (Invalid value)
+1          Control mode On
+ 00        Off
+ 01        Dim
+ 10        Dim
+ 11        On
+   0 0     Brake Off
+   0 1     Brake On
+   1 0     Brake On
+   1 1     ~Brake on with Emergency Stop~
+      00   Off
+      01   Left turn
+      10   Right turn
+      11   Hazard
+        0  Backup Off
+        1  Backup On
+
+
+Left turn: 82
+Right turn: 84
+Hazard: 86
+
+0 ~ 13: Front-left
+14 ~ 27: Front-right
+28 ~ 41: Rear-left
+42 ~ 55: Rear-right
